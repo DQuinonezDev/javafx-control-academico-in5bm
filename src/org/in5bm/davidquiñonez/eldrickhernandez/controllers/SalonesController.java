@@ -357,7 +357,13 @@ public class SalonesController implements Initializable {
                     validacionI();
                 } else if (txtCapacidadMax.getText().isEmpty()){
                     validacionI();
-                }else if (agregarSalones()) {
+                }else if (txtCodigo.getText().length() > 5){
+                    validacionI();
+                }else if (txtDescripcion.getText().length() > 45){
+                    validacionI();
+                }else if(txtEdificio.getText().length() > 15){
+                    validacionI();
+                }else if(agregarSalones()) {
                     cargarDatos();
                     limpiarCampos();
                     deshabilitarCampos();
@@ -437,7 +443,18 @@ public class SalonesController implements Initializable {
                 operacion = Operacion.NINGUNO;
                 break;
             case ACTUALIZAR:
-                if (existeElemento()) {
+                
+                if(txtCodigo.getText().isEmpty()){
+                    validacionI();
+                } else if (txtCapacidadMax.getText().isEmpty()){
+                    validacionI();
+                }else if (txtCodigo.getText().length() > 5){
+                    validacionI();
+                }else if (txtDescripcion.getText().length() > 45){
+                    validacionI();
+                }else if(txtEdificio.getText().length() > 15){
+                    validacionI();
+                }else if (existeElemento()) {
                     if (actualizarSalones()) {
                         limpiarCampos();
                         cargarDatos();
@@ -587,7 +604,6 @@ public class SalonesController implements Initializable {
         Alert alerta = new Alert(Alert.AlertType.WARNING);
         alerta.setTitle("Control Academico - El Bosque");
         alerta.setHeaderText(null);
-        alerta.setContentText("Le hace falta ingresar el Grado");
         Stage stagee = (Stage) alerta.getDialogPane().getScene().getWindow();
         stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
         alerta.show();
@@ -595,7 +611,15 @@ public class SalonesController implements Initializable {
             alerta.setContentText("Le falta ingresar el Codigo");
         } else if (txtCapacidadMax.getText().isEmpty()) {
             alerta.setContentText("Le falta ingresar la Capacidad Maxima");
+        } else if (txtCodigo.getText().length() > 5 ){
+            alerta.setContentText("El Codigo de salones se pasa del valor establecido |5|");
+        } else if (txtDescripcion.getText().length() > 45){
+            alerta.setContentText("La descripcion se pasa del valor establecido |45|");
+        } else if (txtEdificio.getText().length() > 15){
+            alerta.setContentText("El edificio se pasa del valor establecido |15|");
         }
     }
+    
+    
 
 }

@@ -18,8 +18,12 @@ import javafx.scene.layout.AnchorPane;
 import org.in5bm.davidquiñonez.eldrickhernandez.controllers.AlumnosController;
 import org.in5bm.davidquiñonez.eldrickhernandez.controllers.AsignacionAlumnosController;
 import org.in5bm.davidquiñonez.eldrickhernandez.controllers.CarrerasTecnicasController;
+import org.in5bm.davidquiñonez.eldrickhernandez.controllers.CursosController;
 import org.in5bm.davidquiñonez.eldrickhernandez.controllers.MenuPrincipalController;
 import org.in5bm.davidquiñonez.eldrickhernandez.controllers.SalonesController;
+import org.in5bm.davidquiñonez.eldrickhernandez.controllers.CursosController;
+import org.in5bm.davidquiñonez.eldrickhernandez.controllers.HorarioController;
+import org.in5bm.davidquiñonez.eldrickhernandez.controllers.InstructoresController;
 
 /**
  *
@@ -108,4 +112,33 @@ public class Principal extends Application {
         }
     }
 
+    public void mostrarEscenaCursos(){
+        try{
+            CursosController cursosController = (CursosController) cambiarEscena ("CursosView.fxml", 1200,700);
+            cursosController.setEscenarioPrincipal(this);
+        }catch(Exception ex){
+            System.err.println("\nSe produjo un error al cargar la vista de Cursos");
+            ex.printStackTrace();
+        }
+    }
+    
+    public void mostrarEscenaHorarios(){
+        try{
+            HorarioController horarioController = (HorarioController) cambiarEscena ("HorariosView.fxml", 1200,700);
+            horarioController.setEscenarioPrincipal(this);
+        }catch(Exception ex){
+            System.err.println("\nSe produjo un error al cargar la vista de Horarios");
+            ex.printStackTrace();
+        }
+    }
+    
+    public void mostrarEscenaInstructores(){
+        try{
+            InstructoresController instructorController = (InstructoresController) cambiarEscena ("InstructoresView.fxml", 1200,700);
+            instructorController.setEscenarioPrincipal(this);
+        }catch(Exception ex){
+            System.err.println("\nSe produjo un error al cargar la vista de Instructores");
+            ex.printStackTrace();
+        }
+    }
 }

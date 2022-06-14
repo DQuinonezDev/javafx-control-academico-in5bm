@@ -1,5 +1,6 @@
 package org.in5bm.davidquiñonez.eldrickhernandez.models;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -16,7 +17,7 @@ public class AsignacionesAlumnos {
     private IntegerProperty id;
     private StringProperty alumnoId;
     private IntegerProperty cursoId;
-    private ObjectProperty<LocalDate> fechaAsignacion;
+    private ObjectProperty<LocalDateTime> fechaAsignacion;
 
     public AsignacionesAlumnos() {
         this.id = new SimpleIntegerProperty();
@@ -25,7 +26,7 @@ public class AsignacionesAlumnos {
         this.fechaAsignacion = new SimpleObjectProperty<>();
     }
 
-    public AsignacionesAlumnos(int id, String alumnoId, int cursoId, LocalDate fechaAsignacion){
+    public AsignacionesAlumnos(int id, String alumnoId, int cursoId, LocalDateTime fechaAsignacion){
         this.id = new SimpleIntegerProperty(id);
         this.alumnoId = new SimpleStringProperty(alumnoId);
         this.cursoId = new SimpleIntegerProperty();
@@ -69,15 +70,15 @@ public class AsignacionesAlumnos {
         this.cursoId.set(cursoId);
     }
     
-    public ObjectProperty<LocalDate> fechaAsignacion(){
+    public ObjectProperty<LocalDateTime> fechaAsignacion(){
         return fechaAsignacion();
     }
     
-    public LocalDate getFechaAsignacion(){
+    public LocalDateTime getFechaAsignacion(){
         return fechaAsignacion.get();
     }
     
-    public void setFechaAsignacion(LocalDate fechaAsignacion){
+    public void setFechaAsignacion(LocalDateTime fechaAsignacion){
         this.fechaAsignacion.set(fechaAsignacion);
     }
     

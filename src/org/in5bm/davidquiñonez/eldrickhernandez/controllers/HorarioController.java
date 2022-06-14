@@ -1,95 +1,111 @@
 package org.in5bm.davidquiñonez.eldrickhernandez.controllers;
 
-import javafx.scene.control.TextField;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import org.in5bm.davidquiñonez.eldrickhernandez.system.Principal;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Optional;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import org.in5bm.davidquiñonez.eldrickhernandez.db.Conexion;
-import org.in5bm.davidquiñonez.eldrickhernandez.models.Alumnos;
+import org.in5bm.davidquiñonez.eldrickhernandez.models.Horarios;
+import org.in5bm.davidquiñonez.eldrickhernandez.system.Principal;
 
 /**
  *
- * @author David Quiñonez
+ * @author David Josué André Quiñonez Zeta
+ * @date 8 jun. 2022
+ * @time 23:21:29
+ *
+ * Código Técnico: IN5BM
  */
-public class AlumnosController implements Initializable {
+public class HorarioController implements Initializable {
+
+    private final String PAQUETE_IMAGES = "org/in5bm/davidquiñonez/eldrickhernandez/resources/images/";
+    private Principal escenarioPrincipal;
 
     private enum Operacion {
         NINGUNO, GUARDAR, ACTUALIZAR
     }
 
     private Operacion operacion = Operacion.NINGUNO;
-
-    private Principal escenarioPrincipal;
-
-    private final String PAQUETE_IMAGES = "org/in5bm/davidquiñonez/eldrickhernandez/resources/images/";
-
-    @FXML
-    private TextField txtCarne;
-    @FXML
-    private TextField txtNombre1;
-    @FXML
-    private TextField txtNombre2;
-    @FXML
-    private TextField txtNombre3;
-    @FXML
-    private TextField txtApellido1;
-    @FXML
-    private TextField txtApellido2;
     @FXML
     private Button btnNuevo;
     @FXML
-    private Button btnModificar;
-    @FXML
-    private Button btnEliminar;
-    @FXML
-    private Button btnReporte;
-    @FXML
-    private TableColumn colCarne;
-    @FXML
-    private TableColumn colNombre1;
-    @FXML
-    private TableColumn colNombre2;
-    @FXML
-    private TableColumn colNombre3;
-    @FXML
-    private TableColumn colApellido1;
-    @FXML
-    private TableColumn colApellido2;
-    @FXML
-    private TableView tblAlumnos;
-    @FXML
     private ImageView imgNuevo;
+    @FXML
+    private Button btnModificar;
     @FXML
     private ImageView imgModificar;
     @FXML
+    private Button btnEliminar;
+    @FXML
     private ImageView imgEliminar;
     @FXML
+    private Button btnReporte;
+    @FXML
     private ImageView imgReporte;
+    @FXML
+    private TextField txtId;
+    @FXML
+    private CheckBox cbMartes;
+    @FXML
+    private JFXCheckBox cbLunes;
+    @FXML
+    private CheckBox cbJueves;
+    @FXML
+    private CheckBox cbViernes;
+    @FXML
+    private CheckBox cbMiercoles;
+    @FXML
+    private JFXTimePicker tpHorarioInicio;
+
+    @FXML
+    private JFXTimePicker tpHorarioFinal;
+    @FXML
+    private TableView<?> tblHorarios;
+    @FXML
+    private TableColumn<?, ?> colId;
+    @FXML
+    private TableColumn<?, ?> colInicio;
+    @FXML
+    private TableColumn<?, ?> colFinal;
+    @FXML
+    private TableColumn<?, ?> colLunes;
+    @FXML
+    private TableColumn<?, ?> colMartes;
+    @FXML
+    private TableColumn<?, ?> colMiercoles;
+    @FXML
+    private TableColumn<?, ?> colJueves;
+    @FXML
+    private TableColumn<?, ?> colVienres;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL arg0, ResourceBundle arg1) {
         cargarDatos();
     }
-
-    private ObservableList<Alumnos> listaAlumnos;
 
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
@@ -99,203 +115,77 @@ public class AlumnosController implements Initializable {
         this.escenarioPrincipal = escenarioPrincipal;
     }
 
-    // METODOS
     //DESHABILITAR CAMPOS
     private void deshabilitarCampos() {
-        txtCarne.setEditable(false);
-        txtNombre1.setEditable(false);
-        txtNombre2.setEditable(false);
-        txtNombre3.setEditable(false);
-        txtApellido1.setEditable(false);
-        txtApellido2.setEditable(false);
-        tblAlumnos.setDisable(false);
+        txtId.setEditable(false);
+        /*tpHorarioFinal.setEditable(false);
+        tpHorarioInicio.setEditable(false);*/
 
-        txtCarne.setDisable(true);
-        txtNombre1.setDisable(true);
-        txtNombre2.setDisable(true);
-        txtNombre3.setDisable(true);
-        txtApellido1.setDisable(true);
-        txtApellido2.setDisable(true);
+        txtId.setDisable(true);
+        tpHorarioFinal.setDisable(true);
+        tpHorarioInicio.setDisable(true);
+        cbLunes.setDisable(true);
+        cbMartes.setDisable(true);
+        cbMiercoles.setDisable(true);
+        cbJueves.setDisable(true);
+        cbViernes.setDisable(true);
     }
 
     //HABILITAR CAMPOS
     private void habilitarCampos() {
-        tblAlumnos.setDisable(true);
-        txtCarne.setEditable(false);
-        txtNombre1.setEditable(true);
-        txtNombre2.setEditable(true);
-        txtNombre3.setEditable(true);
-        txtApellido1.setEditable(true);
-        txtApellido2.setEditable(true);
+        txtId.setEditable(true);
+       /* tpHorarioFinal.setEditable(true);
+        tpHorarioInicio.setEditable(true);*/
 
-        txtCarne.setDisable(true);
-        txtNombre1.setDisable(false);
-        txtNombre2.setDisable(false);
-        txtNombre3.setDisable(false);
-        txtApellido1.setDisable(false);
-        txtApellido2.setDisable(false);
+        txtId.setDisable(false);
+        tpHorarioFinal.setDisable(false);
+        tpHorarioInicio.setDisable(false);
+        cbLunes.setDisable(false);
+        cbMartes.setDisable(false);
+        cbMiercoles.setDisable(false);
+        cbJueves.setDisable(false);
+        cbViernes.setDisable(false);
     }
 
     //LIMPIAR CAMPOS
     private void limpiarCampos() {
-        txtCarne.clear();
-        txtNombre1.clear();
-        txtNombre2.clear();
-        txtNombre3.clear();
-        txtApellido1.clear();
-        txtApellido2.clear();
+        txtId.clear();
+        tpHorarioFinal.getEditor().clear();
+        tpHorarioInicio.getEditor().clear();
+        cbLunes.setSelected(false);
+        cbMartes.setSelected(false);
+        cbMiercoles.setSelected(false);
+        cbJueves.setSelected(false);
+        cbViernes.setSelected(false);
     }
 
-    //AGREGAR ALUMNOS
-    private boolean agregarAlumno() {
-        Alumnos alumno = new Alumnos();
+    private ObservableList<Horarios> listaHorarios;
+    //OBSEVABLELIST
 
-        alumno.setCarne(txtCarne.getText());
-        alumno.setNombre1(txtNombre1.getText());
-        alumno.setNombre2(txtNombre2.getText());
-        alumno.setNombre3(txtNombre3.getText());
-        alumno.setApellido1(txtApellido1.getText());
-        alumno.setApellido2(txtApellido2.getText());
+    public ObservableList getHorarios() {
 
-        PreparedStatement pstmt = null;
-
-        try {
-            pstmt = Conexion.getInstance().getConexion()
-                    .prepareCall("{CALL sp_alumnos_create(?,?,?,?,?,?)}");
-            pstmt.setString(1, alumno.getCarne());
-            pstmt.setString(2, alumno.getNombre1());
-            pstmt.setString(3, alumno.getNombre2());
-            pstmt.setString(4, alumno.getNombre3());
-            pstmt.setString(5, alumno.getApellido1());
-            pstmt.setString(6, alumno.getApellido2());
-
-            System.out.println(pstmt.toString());
-            pstmt.execute();
-            listaAlumnos.add(alumno);
-            return true;
-
-        } catch (SQLException e) {
-            System.err.println("\nSe produjo un error al insertar el siguiente alumno: " + alumno.toString());
-            e.printStackTrace();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
-    //Actualizar Alumnos
-    private boolean actualizarAlumno() {
-
-        Alumnos alumno = new Alumnos();
-        alumno.setCarne(txtCarne.getText());
-        alumno.setNombre1(txtNombre1.getText());
-        alumno.setNombre2(txtNombre2.getText());
-        alumno.setNombre3(txtNombre3.getText());
-        alumno.setApellido1(txtApellido1.getText());
-        alumno.setApellido2(txtApellido2.getText());
-
-        PreparedStatement pstmt = null;
-
-        try {
-            pstmt = Conexion.getInstance().getConexion().prepareCall("CALL sp_alumnos_update(?,?,?,?,?,?)");
-            pstmt.setString(1, alumno.getCarne());
-            pstmt.setString(2, alumno.getNombre1());
-            pstmt.setString(3, alumno.getNombre2());
-            pstmt.setString(4, alumno.getNombre3());
-            pstmt.setString(5, alumno.getApellido1());
-            pstmt.setString(6, alumno.getApellido2());
-
-            System.out.println(pstmt.toString());
-            pstmt.execute();
-            return true;
-
-        } catch (SQLException e) {
-            System.err.println("\nSucedio un error al intentar actualizar el siguiente registro: " + alumno.toString());
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
-    }
-
-    //ELIMINAR ALUMNOS
-    public boolean eliminarAlumno() {
-        if (existeElemento()) {
-            Alumnos alumno = ((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem());
-            System.out.println(alumno.toString());
-            PreparedStatement pstmt = null;
-
-            try {
-                pstmt = Conexion.getInstance().getConexion()
-                        .prepareCall("{CALL sp_alumnos_delete(?)}");
-                pstmt.setString(1, alumno.getCarne());
-                System.out.println(pstmt);
-                pstmt.execute();
-                return true;
-            } catch (SQLException e) {
-                System.out.println("\nSe produjo un error al intentar eliminar el siguiente registro " + alumno.toString());
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-
-                try {
-
-                    if (pstmt != null) {
-                        pstmt.close();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return false;
-    }
-
-    //OBSEVABLELIST GET ALUMNOS
-    public ObservableList getAlumnos() {
-
-        ArrayList<Alumnos> lista = new ArrayList<>();
+        ArrayList<Horarios> lista = new ArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
-            pstmt = Conexion.getInstance().getConexion()
-                    .prepareCall("{CALL sp_alumnos_read()}");
-            System.out.println(pstmt.toString());
+            pstmt = Conexion.getInstance().getConexion().prepareCall("{CALL sp_horarios_read()}");
             rs = pstmt.executeQuery();
-
             while (rs.next()) {
-                Alumnos alumno = new Alumnos();
-                alumno.setCarne(rs.getString(1));
-                alumno.setNombre1(rs.getString(2));
-                alumno.setNombre2(rs.getString(3));
-                alumno.setNombre3(rs.getString(4));
-                alumno.setApellido1(rs.getString(5));
-                alumno.setApellido2(rs.getString(6));
-
-                lista.add(alumno);
-                System.out.println(alumno.toString());
+                Horarios horario = new Horarios();
+                horario.setId(rs.getInt(1));
+                horario.setFInicio(rs.getTime(2).toLocalTime());
+                horario.setFFinal(rs.getTime(3).toLocalTime());
+                horario.setLunes(rs.getBoolean(4));
+                horario.setMartes(rs.getBoolean(5));
+                horario.setMiercoles(rs.getBoolean(6));
+                horario.setJueves(rs.getBoolean(7));
+                horario.setViernes(rs.getBoolean(8));
+                lista.add(horario);
+                System.out.println(horario.toString());
             }
-            listaAlumnos = FXCollections.observableArrayList(lista);
+
+            listaHorarios = FXCollections.observableArrayList(lista);
 
         } catch (SQLException e) {
             System.err.println("\nSe produjo un error al intentar consultar la lista alumnos:");
@@ -319,32 +209,132 @@ public class AlumnosController implements Initializable {
             }
         }
 
-        return listaAlumnos;
+        return listaHorarios;
+    }
+    
+    
+
+    //AGREGAR HORARIOS
+    private boolean agregarHorarios() {
+        Horarios horario = new Horarios();
+
+        //horario.setId(Integer.parseInt(txtId.getText()));
+        horario.setFInicio(tpHorarioInicio.getValue());
+        horario.setFFinal(tpHorarioFinal.getValue());
+        horario.setLunes(cbLunes.selectedProperty().get());
+        horario.setMartes(cbMartes.selectedProperty().get());
+        horario.setMiercoles(cbMiercoles.selectedProperty().get());
+        horario.setJueves(cbJueves.selectedProperty().get());
+        horario.setViernes(cbViernes.selectedProperty().get());
+
+        PreparedStatement pstmt = null;
+
+        try {
+            pstmt = Conexion.getInstance().getConexion()
+                    .prepareCall("{CALL sp_carreras_horarios_create(?,?,?,?,?,?,?)}");
+            pstmt.setString(1,  horario.getFInicio().toString());
+            pstmt.setString(2,  horario.getFFinal().toString());
+            pstmt.setBoolean(3, horario.getLunes());
+            pstmt.setBoolean(4, horario.getMartes());
+            pstmt.setBoolean(5, horario.getMiercoles());
+            pstmt.setBoolean(6, horario.getJueves());
+            pstmt.setBoolean(7, horario.getViernes());
+
+            System.out.println(pstmt.toString());
+            pstmt.execute();
+            listaHorarios.add(horario);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("\nSe produjo un error al insertar el siguiente alumno: " + horario.toString());
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    
+    private boolean actualizarHorarios(){
+        Horarios horario = new Horarios();
+
+        horario.setId(Integer.parseInt(txtId.getText()));
+        horario.setFInicio(tpHorarioInicio.getValue());
+        horario.setFFinal(tpHorarioFinal.getValue());
+        horario.setLunes(cbLunes.selectedProperty().get());
+        horario.setMartes(cbMartes.selectedProperty().get());
+        horario.setMiercoles(cbMiercoles.selectedProperty().get());
+        horario.setJueves(cbJueves.selectedProperty().get());
+        horario.setViernes(cbViernes.selectedProperty().get());
+
+        PreparedStatement pstmt = null;
+
+        try {
+            pstmt = Conexion.getInstance().getConexion()
+                    .prepareCall("{CALL sp_horarios_update(?,?,?,?,?,?,?,?)}");
+            pstmt.setInt(1,  horario.getId());
+            pstmt.setString(2,  horario.getFInicio().toString());
+            pstmt.setString(3,  horario.getFFinal().toString());
+            pstmt.setBoolean(4, horario.getLunes());
+            pstmt.setBoolean(5, horario.getMartes());
+            pstmt.setBoolean(6, horario.getMiercoles());
+            pstmt.setBoolean(7, horario.getJueves());
+            pstmt.setBoolean(8, horario.getViernes());
+
+            System.out.println(pstmt.toString());
+            pstmt.execute();
+            listaHorarios.add(horario);
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("\nSe produjo un error al insertar el siguiente alumno: " + horario.toString());
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+        
+    }
+    
+    
+    private boolean eliminarHorarios(){
+        
+        return false;
     }
 
     // EXISTE ELEMENTO
     public boolean existeElemento() {
-        return ((tblAlumnos.getSelectionModel().getSelectedItem() != null));
+        return ((tblHorarios.getSelectionModel().getSelectedItem() != null));
     }
 
-    /* CLICS */
     // CLIC REGRESAR
-    @FXML
-    private void clicRegresar() {
-        escenarioPrincipal.mostrarEscenaPrincipal();
-    }
-
-    // CLIC NUEVO
     @FXML
     private void clicNuevo() {
 
         switch (operacion) {
             case NINGUNO:
                 habilitarCampos();
-                tblAlumnos.setDisable(true);
+                tblHorarios.setDisable(true);
 
-                txtCarne.setEditable(true);
-                txtCarne.setDisable(false);
+                txtId.setEditable(true);
+                txtId.setDisable(false);
 
                 limpiarCampos();
 
@@ -364,7 +354,7 @@ public class AlumnosController implements Initializable {
                 break;
             case GUARDAR:
 
-                if (txtCarne.getText().isEmpty()) {
+                /*  if (txtCarne.getText().isEmpty()) {
                     validacionI();
 
                 } else if (txtNombre1.getText().isEmpty()) {
@@ -383,12 +373,12 @@ public class AlumnosController implements Initializable {
                     validacionI();
                 } else if (txtApellido2.getText().length() > 15) {
                     validacionI();
-                } else if (agregarAlumno()) {
+                } else*/ if (agregarHorarios()) {
 
                     cargarDatos();
                     limpiarCampos();
                     deshabilitarCampos();
-                    tblAlumnos.setDisable(false);
+                    tblHorarios.setDisable(false);
 
                     btnNuevo.setText("Nuevo");
                     imgNuevo.setImage(new Image(PAQUETE_IMAGES + "pagina.png"));
@@ -409,11 +399,9 @@ public class AlumnosController implements Initializable {
         }
     }
 
-    // CLIC MODIFICAR
     @FXML
     private void clicModificar() {
-
-        switch (operacion) {
+    switch (operacion) {
             case NINGUNO:
                 if (existeElemento()) {
                     habilitarCampos();
@@ -461,12 +449,12 @@ public class AlumnosController implements Initializable {
                 limpiarCampos();
                 deshabilitarCampos();
 
-                tblAlumnos.setDisable(false);
+                tblHorarios.setDisable(false);
 
                 operacion = Operacion.NINGUNO;
                 break;
             case ACTUALIZAR:
-                if (txtCarne.getText().isEmpty()) {
+               /* if (txtCarne.getText().isEmpty()) {
                     validacionI();
 
                 } else if (txtNombre1.getText().isEmpty()) {
@@ -485,15 +473,16 @@ public class AlumnosController implements Initializable {
                     validacionI();
                 } else if (txtApellido2.getText().length() > 15) {
                     validacionI();
-                } else if (existeElemento()) {
-                    if (actualizarAlumno()) {
+                } else */if (existeElemento()) {
+
+                    if (actualizarHorarios()) {
                         limpiarCampos();
                         cargarDatos();
                         deshabilitarCampos();
 
-                        tblAlumnos.setDisable(false);
+                        tblHorarios.setDisable(false);
 
-                        tblAlumnos.getSelectionModel().clearSelection();
+                        tblHorarios.getSelectionModel().clearSelection();
 
                         btnModificar.setText("Nuevo");
                         btnNuevo.setDisable(false);
@@ -518,7 +507,6 @@ public class AlumnosController implements Initializable {
         }
     }
 
-    // CLIC ELIMINAR
     @FXML
     private void clicEliminar() {
         switch (operacion) {
@@ -538,7 +526,7 @@ public class AlumnosController implements Initializable {
                 limpiarCampos();
                 deshabilitarCampos();
 
-                tblAlumnos.getSelectionModel().clearSelection();
+                tblHorarios.getSelectionModel().clearSelection();
 
                 operacion = Operacion.NINGUNO;
                 break;
@@ -556,9 +544,9 @@ public class AlumnosController implements Initializable {
 
                     if (botonC.get().equals(ButtonType.OK)) {
 
-                        if (eliminarAlumno()) {
+                        if (eliminarHorarios()) {
 
-                            listaAlumnos.remove(tblAlumnos.getSelectionModel().getFocusedIndex());
+                            listaHorarios.remove(tblHorarios.getSelectionModel().getFocusedIndex());
                             limpiarCampos();
                             cargarDatos();
 
@@ -574,7 +562,7 @@ public class AlumnosController implements Initializable {
                         }
                     } else if (botonC.get().equals(ButtonType.CANCEL)) {
                         alertaC.close();
-                        tblAlumnos.getSelectionModel().clearSelection();
+                        tblHorarios.getSelectionModel().clearSelection();
                         limpiarCampos();
                     }
                 } else {
@@ -607,61 +595,37 @@ public class AlumnosController implements Initializable {
         alerta.show();
     }
 
+    @FXML
+    private void clicRegresar() {
+        escenarioPrincipal.mostrarEscenaPrincipal();
+    }
 
     /* CARGAR DATOS */
     @FXML
     private void cargarDatos() {
-        tblAlumnos.setItems(getAlumnos());
-        colCarne.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("carne"));
-        colNombre1.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("nombre1"));
-        colNombre2.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("nombre2"));
-        colNombre3.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("nombre3"));
-        colApellido1.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("apellido1"));
-        colApellido2.setCellValueFactory(new PropertyValueFactory<Alumnos, String>("apellido2"));
+        tblHorarios.setItems(getHorarios());
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colInicio.setCellValueFactory(new PropertyValueFactory<>("fInicio"));
+        colFinal.setCellValueFactory(new PropertyValueFactory<>("fFinal"));
+        colLunes.setCellValueFactory(new PropertyValueFactory<>("lunes"));
+        colMartes.setCellValueFactory(new PropertyValueFactory<>("martes"));
+        colMiercoles.setCellValueFactory(new PropertyValueFactory<>("miercoles"));
+        colJueves.setCellValueFactory(new PropertyValueFactory<>("jueves"));
+        colVienres.setCellValueFactory(new PropertyValueFactory<>("viernes"));
     }
 
-    /* SELECCIONAR ELEMENTOS */
     @FXML
     public void seleccionarElemento() {
-
         if (existeElemento()) {
-            txtCarne.setText(((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem()).getCarne());
-            txtNombre1.setText(((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem()).getNombre1());
-            txtNombre2.setText(((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem()).getNombre2());
-            txtNombre3.setText(((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem()).getNombre3());
-            txtApellido1.setText(((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem()).getApellido1());
-            txtApellido2.setText(((Alumnos) tblAlumnos.getSelectionModel().getSelectedItem()).getApellido2());
-        }
+            txtId.setText(String.valueOf(((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getId()));
+            tpHorarioInicio.setValue(((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getFInicio());
+            tpHorarioFinal.setValue(((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getFFinal());
+            cbLunes.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getLunes()));
+            cbMartes.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getMartes()));
+            cbMiercoles.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getMiercoles()));
+            cbJueves.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getJueves()));
+            cbViernes.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getViernes()));
 
-    }
-
-    private void validacionI() {
-        Alert alerta = new Alert(Alert.AlertType.WARNING);
-        alerta.setTitle("Control Academico - El Bosque");
-        alerta.setHeaderText(null);
-        Stage stagee = (Stage) alerta.getDialogPane().getScene().getWindow();
-        stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-        alerta.show();
-
-        if (txtCarne.getText().isEmpty()) {
-            alerta.setContentText("Le falta ingresar Carne");
-        } else if (txtNombre1.getText().isEmpty()) {
-            alerta.setContentText("Le falta ingresar Primer Nombre");
-        } else if (txtApellido1.getText().isEmpty()) {
-            alerta.setContentText("Le falta ingresar Primer Apellido");
-        } else if (txtCarne.getText().length() > 7) {
-            alerta.setContentText("El Carne se pasa del valor establecido |7|");
-        } else if (txtNombre1.getText().length() > 15) {
-            alerta.setContentText("El nombre 1 se pasa del valor establecido |15|");
-        } else if (txtNombre2.getText().length() > 15) {
-            alerta.setContentText("El nombre 2 se pasa del valor establecido |15|");
-        } else if (txtNombre3.getText().length() > 15) {
-            alerta.setContentText("El nombre 3 se pasa del valor establecido |15|");
-        } else if (txtApellido1.getText().length() > 15) {
-            alerta.setContentText("El Apellido se pasa del valor establecido |15|");
-        } else if (txtApellido2.getText().length() > 15) {
-            alerta.setContentText("El Apellido 2 se pasa del valor establecido |15|");
         }
     }
-
 }

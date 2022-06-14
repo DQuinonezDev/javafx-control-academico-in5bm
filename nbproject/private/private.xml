@@ -13,11 +13,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/AlumnosController.java</file>
-            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/SalonesController.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/models/CarrerasTecnicas.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/CursosController.java</file>
             <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/AsignacionAlumnosController.java</file>
-            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/CarrerasTecnicasController.java</file>
-            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/system/Principal.java</file>
-            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/MenuPrincipalController.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/models/AsignacionesAlumnos.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/models/Instructores.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/models/Salones.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/models/Horarios.java</file>
+            <file>file:/C:/Users/David%20Quiñonez/OneDrive/Escritorio/in5bm-control-academico-dquiñonez_ehernandez/src/org/in5bm/davidquiñonez/eldrickhernandez/controllers/HorarioController.java</file>
         </group>
     </open-files>
 </project-private>

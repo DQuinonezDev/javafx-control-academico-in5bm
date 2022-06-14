@@ -2,9 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -20,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #D6EAF8;" stylesheets="@../resources/css/EstiloModulos.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.in5bm.davidquiñonez.eldrickhernandez.controllers.CursosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #D6EAF8;" stylesheets="@../resources/css/EstiloModulos.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.in5bm.davidquiñonez.eldrickhernandez.controllers.InstructoresController">
    <children>
       <BorderPane layoutX="-3.0" prefHeight="700.0" prefWidth="1207.0">
          <left>
@@ -30,16 +28,12 @@
                      <children>
                         <VBox id="pane-modulos" alignment="CENTER" layoutX="-8.0" layoutY="-18.0" prefHeight="176.0" prefWidth="184.0" stylesheets="@../resources/css/EstiloModulos.css">
                            <children>
-                              <Label id="label-modulos" alignment="CENTER" prefHeight="54.0" prefWidth="171.0" text="CURSOS" textAlignment="CENTER">
+                              <Label id="label-modulos" alignment="CENTER" prefHeight="54.0" prefWidth="171.0" text="Entidad" textAlignment="CENTER">
                                  <font>
                                     <Font name="Sylfaen" size="25.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="92.0" fitWidth="103.0" pickOnBounds="true" smooth="false">
-                                 <image>
-                                    <Image url="@../resources/images/curso-por-internet.png" />
-                                 </image>
-                              </ImageView>
+                              <ImageView fitHeight="92.0" fitWidth="103.0" pickOnBounds="true" smooth="false" />
                            </children>
                         </VBox>
                      </children>
@@ -136,10 +130,8 @@
          <center>
             <AnchorPane prefHeight="502.0" prefWidth="605.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane layoutX="-19.0" layoutY="78.0" prefHeight="176.0" prefWidth="967.0">
+                  <GridPane layoutX="23.0" layoutY="70.0" prefHeight="176.0" prefWidth="808.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -151,101 +143,52 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label styleClass="label-grid" text="ID">
+                        <Label styleClass="label-grid" text="Id">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
-                           <GridPane.margin>
-                              <Insets left="55.0" />
-                           </GridPane.margin>
                         </Label>
-                        <Label styleClass="label-grid" text="Nombre Cursos" GridPane.columnIndex="2">
+                        <Label styleClass="label-grid" text="Nombre 1" GridPane.columnIndex="2">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
-                           <GridPane.margin>
-                              <Insets left="55.0" />
-                           </GridPane.margin>
                         </Label>
-                        <Label styleClass="label-grid" text="Ciclo Escolar" GridPane.rowIndex="1">
+                        <Label styleClass="label-grid" text="Nombre 2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
-                           <GridPane.margin>
-                              <Insets left="30.0" />
-                           </GridPane.margin>
                         </Label>
-                        <Label styleClass="label-grid" text="Cupo Maximo" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label fx:id="txtNombre3" styleClass="label-grid" text="Nombre 3" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
-                           <GridPane.margin>
-                              <Insets left="55.0" />
-                           </GridPane.margin>
                         </Label>
-                        <Label styleClass="label-grid" text="Cupo Minimo" GridPane.rowIndex="2">
+                        <Label styleClass="label-grid" text="Apellido 1" GridPane.rowIndex="2">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
-                           <GridPane.margin>
-                              <Insets left="30.0" />
-                           </GridPane.margin>
                         </Label>
-                        <Label styleClass="label-grid" text="Carrera Tecninca" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Label styleClass="label-grid" text="Apellido 2" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
                            </font>
-                           <GridPane.margin>
-                              <Insets left="45.0" />
-                           </GridPane.margin>
                         </Label>
                         <TextField fx:id="txtId" disable="true" editable="false" prefHeight="26.0" prefWidth="63.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtNombreCursos" disable="true" editable="false" GridPane.columnIndex="3" />
-                        <Spinner fx:id="spnCiclo" disable="true" editable="true" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Spinner fx:id="spnCupoMaximo" disable="true" editable="true" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Spinner fx:id="spnCupoMinimo" disable="true" editable="true" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="cmbCarreraTecnica" disable="true" editable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label styleClass="label-grid" text="Horario" GridPane.columnIndex="4">
-                           <font>
-                              <Font name="Times New Roman Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="55.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <ComboBox fx:id="cmbHorarios" disable="true" editable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" />
-                        <Label styleClass="label-grid" text="Instructor" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Times New Roman Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="50.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <ComboBox fx:id="cmbInstructor" disable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                        <Label styleClass="label-grid" text="Salón" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Times New Roman Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="55.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <ComboBox fx:id="cmbSalon" disable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtNombre1" disable="true" editable="false" GridPane.columnIndex="3" />
+                        <TextField fx:id="txtNombre2" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtNombre3" disable="true" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtApellido1" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtApellido2" disable="true" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <TableView id="table-view" fx:id="tblCursos" layoutX="16.0" layoutY="254.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="426.0" prefWidth="929.0">
+                  <TableView id="table-view" layoutX="16.0" layoutY="254.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="426.0" prefWidth="929.0">
                      <columns>
-                        <TableColumn fx:id="colCarne" prefWidth="34.0" text="ID" />
-                        <TableColumn fx:id="colNombreCurso" prefWidth="151.0" text="NombreCursos" />
-                        <TableColumn fx:id="colCiclo" minWidth="0.0" prefWidth="78.0" text="Ciclo" />
-                        <TableColumn fx:id="colCupoMaximo" prefWidth="98.0" text="Cupo Maximo" />
-                        <TableColumn fx:id="colCupoMinimo" prefWidth="108.0" text="Cupo Minimo" />
-                        <TableColumn fx:id="colCarreraTecnica" prefWidth="116.0" text="Carrera Tecnica" />
-                        <TableColumn fx:id="colHorario" prefWidth="181.0" text="Horario" />
-                        <TableColumn fx:id="colInstructor" prefWidth="89.0" text="Instructor" />
-                        <TableColumn fx:id="colSalon" prefWidth="73.0" text="Salon" />
-                        <TableColumn fx:id="colSalon1" prefWidth="73.0" text="Salon" />
+                        <TableColumn prefWidth="85.0" text="C1" />
+                        <TableColumn prefWidth="161.0" text="C2" />
+                        <TableColumn minWidth="0.0" prefWidth="146.0" text="C3" />
+                        <TableColumn prefWidth="185.0" text="C4" />
+                        <TableColumn prefWidth="183.0" text="C5" />
+                        <TableColumn prefWidth="168.0" text="C6" />
                      </columns>
                   </TableView>
                   <Label layoutY="35.0" prefHeight="19.0" prefWidth="331.0" styleClass="label-extremos" text="." />

@@ -355,79 +355,22 @@ public class CarrerasTecnicasController implements Initializable {
                 break;
             case GUARDAR:
 
-                if (txtCodigoTec.getText().isEmpty()) {
+               if (txtCodigoTec.getText().isEmpty()) {
                     validacionI();
                 } else if (txtCarrera.getText().isEmpty()) {
                     validacionI();
                 } else if (txtGrado.getText().isEmpty()) {
                     validacionI();
-                }else if (txtJornada.getText().isEmpty()) {
+                } else if (txtJornada.getText().isEmpty()) {
                     validacionI();
                 } else if (txtSeccion.getText().isEmpty()) {
                     validacionI();
                 } else if (agregarCarreras()) {
-                        
-                        cargarDatos();
-                        limpiarCampos();
-                        deshabilitarCampos();
-                        tblCarrerasTecnicas.setDisable(false);
 
-                        btnNuevo.setText("Nuevo");
-                        imgNuevo.setImage(new Image(PAQUETE_IMAGES + "pagina.png"));
-
-                        btnModificar.setText("Modificar");
-                        imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
-
-                        btnEliminar.setDisable(false);
-                        btnEliminar.setVisible(true);
-
-                        btnReporte.setDisable(false);
-                        btnReporte.setVisible(true);
-
-                        operacion = Operacion.NINGUNO;
-                    }
-
-                    break;
-                }
-        }
-
-        //CLIC MODIFICAR
-        @FXML
-        private void clicModificar
-        
-        
-            () {
-
-        switch (operacion) {
-                case NINGUNO:
-                    if (existeElemento()) {
-                        habilitarCampos();
-                        tblCarrerasTecnicas.setDisable(false);
-
-                        btnNuevo.setDisable(true);
-                        btnNuevo.setVisible(false);
-
-                        btnModificar.setText("Guardar");
-                        imgModificar.setImage(new Image(PAQUETE_IMAGES + "disco-flexible.png"));
-
-                        btnEliminar.setText("Cancelar");
-                        imgEliminar.setImage(new Image(PAQUETE_IMAGES + "icons8-cancelar-100.png"));
-
-                        btnReporte.setDisable(true);
-                        btnReporte.setVisible(false);
-
-                        operacion = Operacion.ACTUALIZAR;
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Control Academico - El Bosque");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Antes de continuar selecciona un registro");
-                        Stage stagee = (Stage) alert.getDialogPane().getScene().getWindow();
-                        stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-                        alert.show();
-                    }
-                    break;
-                case GUARDAR: //Cancelar
+                    cargarDatos();
+                    limpiarCampos();
+                    deshabilitarCampos();
+                    tblCarrerasTecnicas.setDisable(false);
 
                     btnNuevo.setText("Nuevo");
                     imgNuevo.setImage(new Image(PAQUETE_IMAGES + "pagina.png"));
@@ -441,177 +384,215 @@ public class CarrerasTecnicasController implements Initializable {
                     btnReporte.setDisable(false);
                     btnReporte.setVisible(true);
 
-                    limpiarCampos();
-                    deshabilitarCampos();
+                    operacion = Operacion.NINGUNO;
+                }
 
+                break;
+        }
+    }
+
+    //CLIC MODIFICAR
+    @FXML
+    private void clicModificar() {
+
+        switch (operacion) {
+            case NINGUNO:
+                if (existeElemento()) {
+                    habilitarCampos();
                     tblCarrerasTecnicas.setDisable(false);
 
-                    operacion = Operacion.NINGUNO;
-                    break;
-                case ACTUALIZAR:
-                    if (existeElemento()) {
-                        if (actualizarCarrera()) {
+                    btnNuevo.setDisable(true);
+                    btnNuevo.setVisible(false);
+
+                    btnModificar.setText("Guardar");
+                    imgModificar.setImage(new Image(PAQUETE_IMAGES + "disco-flexible.png"));
+
+                    btnEliminar.setText("Cancelar");
+                    imgEliminar.setImage(new Image(PAQUETE_IMAGES + "icons8-cancelar-100.png"));
+
+                    btnReporte.setDisable(true);
+                    btnReporte.setVisible(false);
+
+                    operacion = Operacion.ACTUALIZAR;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Control Academico - El Bosque");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Antes de continuar selecciona un registro");
+                    Stage stagee = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                    alert.show();
+                }
+                break;
+            case GUARDAR: //Cancelar
+
+                btnNuevo.setText("Nuevo");
+                imgNuevo.setImage(new Image(PAQUETE_IMAGES + "pagina.png"));
+
+                btnModificar.setText("Modificar");
+                imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
+
+                btnEliminar.setDisable(false);
+                btnEliminar.setVisible(true);
+
+                btnReporte.setDisable(false);
+                btnReporte.setVisible(true);
+
+                limpiarCampos();
+                deshabilitarCampos();
+
+                tblCarrerasTecnicas.setDisable(false);
+
+                operacion = Operacion.NINGUNO;
+                break;
+            case ACTUALIZAR:
+                if (existeElemento()) {
+                    if (actualizarCarrera()) {
+                        limpiarCampos();
+                        cargarDatos();
+                        deshabilitarCampos();
+
+                        tblCarrerasTecnicas.setDisable(false);
+                        tblCarrerasTecnicas.getSelectionModel().clearSelection();
+
+                        btnNuevo.setDisable(false);
+                        btnNuevo.setVisible(true);
+
+                        btnModificar.setText("Modificar");
+                        imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
+
+                        btnEliminar.setText("Eliminar");
+                        imgEliminar.setImage(new Image(PAQUETE_IMAGES + "eliminar.png"));
+
+                        btnReporte.setDisable(false);
+                        btnReporte.setVisible(true);
+
+                        operacion = Operacion.NINGUNO;
+
+                    }
+                }
+
+                break;
+        }
+    }
+
+    //CLIC ELIMINAR
+    @FXML
+    private void clicEliminar() {
+        switch (operacion) {
+            case ACTUALIZAR: //Cancelar la actualizacion
+                btnNuevo.setDisable(false);
+                btnNuevo.setVisible(true);
+
+                btnModificar.setText("Modificar");
+                imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
+
+                btnEliminar.setText("Eliminar");
+                imgEliminar.setImage(new Image(PAQUETE_IMAGES + "eliminar.png"));
+
+                btnReporte.setDisable(false);
+                btnReporte.setVisible(true);
+
+                limpiarCampos();
+                deshabilitarCampos();
+
+                tblCarrerasTecnicas.getSelectionModel().clearSelection();
+
+                operacion = Operacion.NINGUNO;
+                break;
+            case NINGUNO:
+                if (existeElemento()) {
+                    Alert alertaC = new Alert(Alert.AlertType.CONFIRMATION);
+                    alertaC.setTitle("Control Academico - El Bosque");
+                    alertaC.setHeaderText(null);
+                    alertaC.setContentText("¿Seguro que quieres eliminar el registro?");
+                    Stage dialog = new Stage();
+                    Stage stage = (Stage) alertaC.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+
+                    Optional<ButtonType> botonC = alertaC.showAndWait();
+
+                    if (botonC.get().equals(ButtonType.OK)) {
+                        eliminarCarrera();
+                        if (eliminarCarrera()) {
+                            limpiarCampos();
+
+                            listaCarrera.remove(tblCarrerasTecnicas.getSelectionModel().getFocusedIndex());
                             limpiarCampos();
                             cargarDatos();
-                            deshabilitarCampos();
 
-                            tblCarrerasTecnicas.setDisable(false);
-                            tblCarrerasTecnicas.getSelectionModel().clearSelection();
-
-                            btnNuevo.setDisable(false);
-                            btnNuevo.setVisible(true);
-
-                            btnModificar.setText("Modificar");
-                            imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
-
-                            btnEliminar.setText("Eliminar");
-                            imgEliminar.setImage(new Image(PAQUETE_IMAGES + "eliminar.png"));
-
-                            btnReporte.setDisable(false);
-                            btnReporte.setVisible(true);
-
-                            operacion = Operacion.NINGUNO;
-
-                        }
-                    }
-
-                    break;
-            }
-        }
-
-        //CLIC ELIMINAR
-        @FXML
-        private void clicEliminar
-        
-        
-            () {
-        switch (operacion) {
-                case ACTUALIZAR: //Cancelar la actualizacion
-                    btnNuevo.setDisable(false);
-                    btnNuevo.setVisible(true);
-
-                    btnModificar.setText("Modificar");
-                    imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
-
-                    btnEliminar.setText("Eliminar");
-                    imgEliminar.setImage(new Image(PAQUETE_IMAGES + "eliminar.png"));
-
-                    btnReporte.setDisable(false);
-                    btnReporte.setVisible(true);
-
-                    limpiarCampos();
-                    deshabilitarCampos();
-
-                    tblCarrerasTecnicas.getSelectionModel().clearSelection();
-
-                    operacion = Operacion.NINGUNO;
-                    break;
-                case NINGUNO:
-                    if (existeElemento()) {
-                        Alert alertaC = new Alert(Alert.AlertType.CONFIRMATION);
-                        alertaC.setTitle("Control Academico - El Bosque");
-                        alertaC.setHeaderText(null);
-                        alertaC.setContentText("¿Seguro que quieres eliminar el registro?");
-                        Stage dialog = new Stage();
-                        Stage stage = (Stage) alertaC.getDialogPane().getScene().getWindow();
-                        stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-
-                        Optional<ButtonType> botonC = alertaC.showAndWait();
-
-                        if (botonC.get().equals(ButtonType.OK)) {
-                            eliminarCarrera();
-                            if (eliminarCarrera()) {
-                                limpiarCampos();
-
-                                listaCarrera.remove(tblCarrerasTecnicas.getSelectionModel().getFocusedIndex());
-                                limpiarCampos();
-                                cargarDatos();
-
-                                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                                alerta.setTitle("Control Academico");
-                                alerta.setHeaderText(null);
-                                alerta.setContentText("Eliminacion Exitosa");
-                                Stage stag = (Stage) alerta.getDialogPane().getScene().getWindow();
-                                stag.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-                                alerta.show();
-                                limpiarCampos();
-                            }
-
-                        } else if (botonC.get().equals(ButtonType.CANCEL)) {
-                            alertaC.close();
-                            tblCarrerasTecnicas.getSelectionModel().clearSelection();
+                            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                            alerta.setTitle("Control Academico");
+                            alerta.setHeaderText(null);
+                            alerta.setContentText("Eliminacion Exitosa");
+                            Stage stag = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stag.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                            alerta.show();
                             limpiarCampos();
                         }
-                    } else {
 
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Control Academico - El Bosque");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Antes de continuar selecciona un registro");
-                        Stage dialog = new Stage();
-                        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                        stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-                        alert.show();
-
+                    } else if (botonC.get().equals(ButtonType.CANCEL)) {
+                        alertaC.close();
+                        tblCarrerasTecnicas.getSelectionModel().clearSelection();
+                        limpiarCampos();
                     }
-                    break;
-            }
-        }
+                } else {
 
-        //CLIC REPORTE
-        @FXML
-        private void clicReporte
-        (ActionEvent event
-        
-        
-            ) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Control Academico - El Bosque");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Antes de continuar selecciona un registro");
+                    Stage dialog = new Stage();
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                    alert.show();
+
+                }
+                break;
+        }
+    }
+
+    //CLIC REPORTE
+    @FXML
+    private void clicReporte(ActionEvent event
+    ) {
         Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("¡AVISO!");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Esta opcion solo esta disponible en la versión PRO");
-            Stage dialog = new Stage();
-            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-            // stage.getIcons().add(new Image(this.getClass().getResource("../resources/images/aprender-en-linea.png").toString()));
-            alerta.show();
-        }
+        alerta.setTitle("¡AVISO!");
+        alerta.setHeaderText(null);
+        alerta.setContentText("Esta opcion solo esta disponible en la versión PRO");
+        Stage dialog = new Stage();
+        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+        // stage.getIcons().add(new Image(this.getClass().getResource("../resources/images/aprender-en-linea.png").toString()));
+        alerta.show();
+    }
 
-        /* CARGAR DATOS */
-        @FXML
-        private void cargarDatos
-        
-        
-            () {
+    /* CARGAR DATOS */
+    @FXML
+    private void cargarDatos() {
         tblCarrerasTecnicas.setItems(getCarreras());
-            ColCodigoTec.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("codigoTecnico"));
-            ColCarrera.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("carrera"));
-            ColGrado.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("grado"));
-            ColJornada.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("jornada"));
-            ColSeccion.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, Character>("seccion"));
+        ColCodigoTec.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("codigoTecnico"));
+        ColCarrera.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("carrera"));
+        ColGrado.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("grado"));
+        ColJornada.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, String>("jornada"));
+        ColSeccion.setCellValueFactory(new PropertyValueFactory<CarrerasTecnicas, Character>("seccion"));
 
-        }
+    }
 
-        /* SELECCIONAR ELEMENTOS */
-        @FXML
-        public void seleccionarElemento
-        
-        
-            () {
+    /* SELECCIONAR ELEMENTOS */
+    @FXML
+    public void seleccionarElemento() {
 
         if (existeElemento()) {
-                txtCodigoTec.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getCodigoTecnico());
-                txtCarrera.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getCarrera());
-                txtGrado.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getGrado());
-                txtJornada.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getJornada());
-                txtSeccion.setText(String.valueOf(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getSeccion()));
-
-            }
+            txtCodigoTec.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getCodigoTecnico());
+            txtCarrera.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getCarrera());
+            txtGrado.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getGrado());
+            txtJornada.setText(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getJornada());
+            txtSeccion.setText(String.valueOf(((CarrerasTecnicas) tblCarrerasTecnicas.getSelectionModel().getSelectedItem()).getSeccion()));
 
         }
 
-    
-
-    
+    }
 
     public String crecarCodigo(String carrera, String grado, char seccion, String jornada) {
         String codigoConcatenado;
@@ -650,14 +631,41 @@ public class CarrerasTecnicasController implements Initializable {
         }
     }
 
-    /*private boolean evaluacionPK() {
+    public String crearCodigo(String carrera, String grado, char seccion, String jornada) {
+        String codigoConcatenado;
+
+        char letraUno = carrera.charAt(0);
+        char letraDos = carrera.charAt(1);
+        char letraJornada = jornada.charAt(0);
+
+        codigoConcatenado = String.valueOf(letraUno) + String.valueOf(letraDos)
+                + grado + String.valueOf(seccion) + String.valueOf(letraJornada);
+
+        codigoConcatenado = codigoConcatenado.toUpperCase();
+
+        txtCodigoTec.setText(codigoConcatenado);
+
+        return codigoConcatenado;
+
+    }
+
+    private boolean evaluacionPK(String codigo) {
         boolean opcion = true;
+
         for (int i = 0; i < listaCarrera.size(); i++) {
-            if (txtCarrera.getText().equals(listaCarrera.get(i).getCodigoTecnico())) {
+            if (codigo.equals(listaCarrera.get(i).getCodigoTecnico())) {
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Control Academico Kinal");
+                alert.setHeaderText(null);
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(PAQUETE_IMAGES + "logo.png"));
+                alert.setContentText("Esta carrera ya existe");
+                alert.show();
                 opcion = false;
                 break;
             }
         }
         return opcion;
-    }*/
+    }
 }

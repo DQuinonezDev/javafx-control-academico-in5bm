@@ -204,7 +204,7 @@
                         <Spinner fx:id="spnCiclo" disable="true" editable="true" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Spinner fx:id="spnCupoMaximo" disable="true" editable="true" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Spinner fx:id="spnCupoMinimo" disable="true" editable="true" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="cmbCarreraTecnica" disable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cmbCarreraTecnica" disable="true" editable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <Label styleClass="label-grid" text="Horario" GridPane.columnIndex="4">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
@@ -213,7 +213,7 @@
                               <Insets left="55.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="cmbHorarios" disable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" />
+                        <ComboBox fx:id="cmbHorarios" disable="true" editable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" />
                         <Label styleClass="label-grid" text="Instructor" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <font>
                               <Font name="Times New Roman Bold" size="14.0" />
@@ -231,18 +231,21 @@
                               <Insets left="55.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="cmbInstructor" disable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cmbSalon" disable="true" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <TableView id="table-view" fx:id="tblCursos" layoutX="16.0" layoutY="254.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="426.0" prefWidth="929.0">
                      <columns>
-                        <TableColumn fx:id="colCarne" prefWidth="85.0" text="ID" />
-                        <TableColumn fx:id="colNombre1" prefWidth="161.0" text="NombreCursos" />
-                        <TableColumn fx:id="colNombre2" minWidth="0.0" prefWidth="146.0" text="Ciclo" />
-                        <TableColumn fx:id="colNombre3" prefWidth="185.0" text="Cupo Maximo" />
-                        <TableColumn fx:id="colApellido1" prefWidth="183.0" text="Cupo Minimo" />
-                        <TableColumn fx:id="colApellido2" prefWidth="100.0" text="Carrera Tecnica" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn fx:id="colCarne" prefWidth="34.0" text="ID" />
+                        <TableColumn fx:id="colNombreCurso" prefWidth="151.0" text="NombreCursos" />
+                        <TableColumn fx:id="colCiclo" minWidth="0.0" prefWidth="78.0" text="Ciclo" />
+                        <TableColumn fx:id="colCupoMaximo" prefWidth="98.0" text="Cupo Maximo" />
+                        <TableColumn fx:id="colCupoMinimo" prefWidth="108.0" text="Cupo Minimo" />
+                        <TableColumn fx:id="colCarreraTecnica" prefWidth="116.0" text="Carrera Tecnica" />
+                        <TableColumn fx:id="colHorario" prefWidth="181.0" text="Horario" />
+                        <TableColumn fx:id="colInstructor" prefWidth="89.0" text="Instructor" />
+                        <TableColumn fx:id="colSalon" prefWidth="73.0" text="Salon" />
+                        <TableColumn fx:id="colSalon1" prefWidth="73.0" text="Salon" />
                      </columns>
                   </TableView>
                   <Label layoutY="35.0" prefHeight="19.0" prefWidth="331.0" styleClass="label-extremos" text="." />
