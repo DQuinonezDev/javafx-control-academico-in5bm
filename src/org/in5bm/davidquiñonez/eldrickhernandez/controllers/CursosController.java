@@ -449,11 +449,9 @@ public class CursosController implements Initializable {
         cursos.setSalonId(((Salones) cmbSalon.getSelectionModel().getSelectedItem()).getCodigoSalon());
         PreparedStatement pstmt = null;
 
-    
-
         try {
             pstmt = Conexion.getInstance().getConexion().prepareCall("CALL sp_cursos_update(?,?,?,?,?,?,?,?,?)");
-           
+
             pstmt.setInt(1, cursos.getId());
             pstmt.setString(2, cursos.getNombreCurso());
             pstmt.setInt(3, cursos.getCiclo());
@@ -533,7 +531,7 @@ public class CursosController implements Initializable {
                 tblCursos.setDisable(true);
 
                 txtId.setEditable(true);
-                txtId.setDisable(false);
+                txtId.setDisable(true);
 
                 limpiarCampos();
 
@@ -552,6 +550,17 @@ public class CursosController implements Initializable {
                 operacion = Operacion.GUARDAR;
                 break;
             case GUARDAR:
+                if (txtNombreCursos.getText().isEmpty()) {
+                    validacionI();
+                } else if (cmbCarreraTecnica.getValue() == null) {
+                    validacionI();
+                } else if (cmbHorarios.getValue() == null) {
+                    validacionI();
+                } else if (cmbInstructor.getValue() == null) {
+                    validacionI();
+                } else if (cmbSalon.getValue() == null) {
+                    validacionI();
+                }else
                 if (agregarCursos()) {
 
                     cargarDatos();
@@ -587,8 +596,6 @@ public class CursosController implements Initializable {
                     habilitarCampos();
                     /*tblAlumnos.setDisable(false);*/
 
-                    
-                    
                     btnNuevo.setDisable(true);
                     btnNuevo.setVisible(false);
 
@@ -634,26 +641,18 @@ public class CursosController implements Initializable {
                 operacion = Operacion.NINGUNO;
                 break;
             case ACTUALIZAR:
-                /*if (txtCarne.getText().isEmpty()) {
+                if (txtNombreCursos.getText().isEmpty()) {
                     validacionI();
-
-                } else if (txtNombre1.getText().isEmpty()) {
+                } else if (cmbCarreraTecnica.getValue() == null) {
                     validacionI();
-                } else if (txtApellido1.getText().isEmpty()) {
+                } else if (cmbHorarios.getValue() == null) {
                     validacionI();
-                } else if (txtCarne.getText().length() > 7) {
+                } else if (cmbInstructor.getValue() == null) {
                     validacionI();
-                } else if (txtNombre1.getText().length() > 15) {
+                } else if (cmbSalon.getValue() == null) {
                     validacionI();
-                } else if (txtNombre2.getText().length() > 15) {
-                    validacionI();
-                } else if (txtNombre3.getText().length() > 15) {
-                    validacionI();
-                } else if (txtApellido1.getText().length() > 15) {
-                    validacionI();
-                } else if (txtApellido2.getText().length() > 15) {
-                    validacionI();
-                } else*/ if (existeElementoSeleccionado()) {
+                }else
+                 if (existeElementoSeleccionado()) {
                     if (actualizarCursos()) {
                         limpiarCampos();
                         cargarDatos();
@@ -1135,5 +1134,26 @@ public class CursosController implements Initializable {
         }
 
         return instructor;
+    }
+
+    private void validacionI() {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle("Control Academico - El Bosque");
+        alerta.setHeaderText(null);
+        Stage stagee = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+        alerta.show();
+
+        if (txtNombreCursos.getText().isEmpty()) {
+            alerta.setContentText("Le falta ingresar Nombre Curso");
+        } else if (cmbCarreraTecnica.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el id Carreras Tecnicas");
+        } else if (cmbHorarios.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el id Carreras Tecnicas");
+        } else if (cmbInstructor.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el id Carreras Tecnicas");
+        } else if (cmbSalon.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el id Carreras Tecnicas");
+        }
     }
 }

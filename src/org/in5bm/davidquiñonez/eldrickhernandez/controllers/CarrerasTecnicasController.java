@@ -631,41 +631,4 @@ public class CarrerasTecnicasController implements Initializable {
         }
     }
 
-    public String crearCodigo(String carrera, String grado, char seccion, String jornada) {
-        String codigoConcatenado;
-
-        char letraUno = carrera.charAt(0);
-        char letraDos = carrera.charAt(1);
-        char letraJornada = jornada.charAt(0);
-
-        codigoConcatenado = String.valueOf(letraUno) + String.valueOf(letraDos)
-                + grado + String.valueOf(seccion) + String.valueOf(letraJornada);
-
-        codigoConcatenado = codigoConcatenado.toUpperCase();
-
-        txtCodigoTec.setText(codigoConcatenado);
-
-        return codigoConcatenado;
-
-    }
-
-    private boolean evaluacionPK(String codigo) {
-        boolean opcion = true;
-
-        for (int i = 0; i < listaCarrera.size(); i++) {
-            if (codigo.equals(listaCarrera.get(i).getCodigoTecnico())) {
-
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Control Academico Kinal");
-                alert.setHeaderText(null);
-                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(PAQUETE_IMAGES + "logo.png"));
-                alert.setContentText("Esta carrera ya existe");
-                alert.show();
-                opcion = false;
-                break;
-            }
-        }
-        return opcion;
-    }
 }

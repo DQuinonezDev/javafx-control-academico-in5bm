@@ -206,11 +206,9 @@
                   <TableView fx:id="tblAsignacionAlumnos" layoutX="11.0" layoutY="203.0" onMouseClicked="#seleccionarElemento" prefHeight="483.0" prefWidth="951.0">
                      <columns>
                         <TableColumn fx:id="colid" prefWidth="62.0" text="Id" />
-                        <TableColumn fx:id="colCarne" prefWidth="118.0" text="Carné" />
-                        <TableColumn fx:id="colNombreAlumno" minWidth="0.0" prefWidth="345.0" text="Nombre Alumno" />
-                        <TableColumn fx:id="ColCursos" prefWidth="66.0" text="Id Cursos" />
-                        <TableColumn fx:id="colNombreCurso" prefWidth="222.0" text="Nombre Curso" />
-                        <TableColumn fx:id="colFechaAsignacion" prefWidth="137.0" text="Fecha Asignacion" />
+                        <TableColumn fx:id="colCarne" prefWidth="286.0" text="Carné" />
+                        <TableColumn fx:id="ColCursos" prefWidth="350.0" text="Id Cursos" />
+                        <TableColumn fx:id="colFechaAsignacion" prefWidth="252.0" text="Fecha Asignacion" />
                      </columns>
                   </TableView>
                   <Label layoutX="-7.0" layoutY="686.0" prefHeight="19.0" prefWidth="991.0" styleClass="label-extremos" text="." />

@@ -71,7 +71,7 @@ public class HorarioController implements Initializable {
     @FXML
     private CheckBox cbMartes;
     @FXML
-    private JFXCheckBox cbLunes;
+    private CheckBox cbLunes;
     @FXML
     private CheckBox cbJueves;
     @FXML
@@ -104,6 +104,7 @@ public class HorarioController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        deshabilitarCampos();
         cargarDatos();
     }
 
@@ -134,10 +135,10 @@ public class HorarioController implements Initializable {
     //HABILITAR CAMPOS
     private void habilitarCampos() {
         txtId.setEditable(true);
-       /* tpHorarioFinal.setEditable(true);
+        /* tpHorarioFinal.setEditable(true);
         tpHorarioInicio.setEditable(true);*/
 
-        txtId.setDisable(false);
+        txtId.setDisable(true);
         tpHorarioFinal.setDisable(false);
         tpHorarioInicio.setDisable(false);
         cbLunes.setDisable(false);
@@ -211,8 +212,6 @@ public class HorarioController implements Initializable {
 
         return listaHorarios;
     }
-    
-    
 
     //AGREGAR HORARIOS
     private boolean agregarHorarios() {
@@ -232,8 +231,8 @@ public class HorarioController implements Initializable {
         try {
             pstmt = Conexion.getInstance().getConexion()
                     .prepareCall("{CALL sp_carreras_horarios_create(?,?,?,?,?,?,?)}");
-            pstmt.setString(1,  horario.getFInicio().toString());
-            pstmt.setString(2,  horario.getFFinal().toString());
+            pstmt.setString(1, horario.getFInicio().toString());
+            pstmt.setString(2, horario.getFFinal().toString());
             pstmt.setBoolean(3, horario.getLunes());
             pstmt.setBoolean(4, horario.getMartes());
             pstmt.setBoolean(5, horario.getMiercoles());
@@ -262,8 +261,8 @@ public class HorarioController implements Initializable {
         }
         return false;
     }
-    
-    private boolean actualizarHorarios(){
+
+    private boolean actualizarHorarios() {
         Horarios horario = new Horarios();
 
         horario.setId(Integer.parseInt(txtId.getText()));
@@ -280,9 +279,9 @@ public class HorarioController implements Initializable {
         try {
             pstmt = Conexion.getInstance().getConexion()
                     .prepareCall("{CALL sp_horarios_update(?,?,?,?,?,?,?,?)}");
-            pstmt.setInt(1,  horario.getId());
-            pstmt.setString(2,  horario.getFInicio().toString());
-            pstmt.setString(3,  horario.getFFinal().toString());
+            pstmt.setInt(1, horario.getId());
+            pstmt.setString(2, horario.getFInicio().toString());
+            pstmt.setString(3, horario.getFFinal().toString());
             pstmt.setBoolean(4, horario.getLunes());
             pstmt.setBoolean(5, horario.getMartes());
             pstmt.setBoolean(6, horario.getMiercoles());
@@ -310,12 +309,11 @@ public class HorarioController implements Initializable {
             }
         }
         return false;
-        
+
     }
-    
-    
-    private boolean eliminarHorarios(){
-        
+
+    private boolean eliminarHorarios() {
+
         return false;
     }
 
@@ -334,7 +332,7 @@ public class HorarioController implements Initializable {
                 tblHorarios.setDisable(true);
 
                 txtId.setEditable(true);
-                txtId.setDisable(false);
+                txtId.setDisable(true);
 
                 limpiarCampos();
 
@@ -354,30 +352,16 @@ public class HorarioController implements Initializable {
                 break;
             case GUARDAR:
 
-                /*  if (txtCarne.getText().isEmpty()) {
+                if (tpHorarioInicio.getValue() == null) {
                     validacionI();
-
-                } else if (txtNombre1.getText().isEmpty()) {
+                } else if (tpHorarioFinal.getValue() == null) {
                     validacionI();
-                } else if (txtApellido1.getText().isEmpty()) {
-                    validacionI();
-                } else if (txtCarne.getText().length() > 7) {
-                    validacionI();
-                } else if (txtNombre1.getText().length() > 15) {
-                    validacionI();
-                } else if (txtNombre2.getText().length() > 15) {
-                    validacionI();
-                } else if (txtNombre3.getText().length() > 15) {
-                    validacionI();
-                } else if (txtApellido1.getText().length() > 15) {
-                    validacionI();
-                } else if (txtApellido2.getText().length() > 15) {
-                    validacionI();
-                } else*/ if (agregarHorarios()) {
+                } else if (agregarHorarios()) {
 
                     cargarDatos();
                     limpiarCampos();
                     deshabilitarCampos();
+                    //txtId.setDisable(true);
                     tblHorarios.setDisable(false);
 
                     btnNuevo.setText("Nuevo");
@@ -401,14 +385,12 @@ public class HorarioController implements Initializable {
 
     @FXML
     private void clicModificar() {
-    switch (operacion) {
+        switch (operacion) {
             case NINGUNO:
                 if (existeElemento()) {
                     habilitarCampos();
                     /*tblAlumnos.setDisable(false);*/
 
-                    
-                    
                     btnNuevo.setDisable(true);
                     btnNuevo.setVisible(false);
 
@@ -454,26 +436,12 @@ public class HorarioController implements Initializable {
                 operacion = Operacion.NINGUNO;
                 break;
             case ACTUALIZAR:
-               /* if (txtCarne.getText().isEmpty()) {
+                if (tpHorarioInicio.getValue() == null) {
                     validacionI();
-
-                } else if (txtNombre1.getText().isEmpty()) {
+                } else if (tpHorarioFinal.getValue() == null) {
                     validacionI();
-                } else if (txtApellido1.getText().isEmpty()) {
-                    validacionI();
-                } else if (txtCarne.getText().length() > 7) {
-                    validacionI();
-                } else if (txtNombre1.getText().length() > 15) {
-                    validacionI();
-                } else if (txtNombre2.getText().length() > 15) {
-                    validacionI();
-                } else if (txtNombre3.getText().length() > 15) {
-                    validacionI();
-                } else if (txtApellido1.getText().length() > 15) {
-                    validacionI();
-                } else if (txtApellido2.getText().length() > 15) {
-                    validacionI();
-                } else */if (existeElemento()) {
+                }
+                if (existeElemento()) {
 
                     if (actualizarHorarios()) {
                         limpiarCampos();
@@ -626,6 +594,21 @@ public class HorarioController implements Initializable {
             cbJueves.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getJueves()));
             cbViernes.setSelected((((Horarios) tblHorarios.getSelectionModel().getSelectedItem()).getViernes()));
 
+        }
+    }
+
+    private void validacionI() {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle("Control Academico - El Bosque");
+        alerta.setHeaderText(null);
+        Stage stagee = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+        alerta.show();
+
+        if (tpHorarioInicio.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el horario inicial");
+        } else if (tpHorarioFinal.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el horario final");
         }
     }
 }

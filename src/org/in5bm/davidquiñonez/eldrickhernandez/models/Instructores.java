@@ -1,7 +1,7 @@
 package org.in5bm.davidquiñonez.eldrickhernandez.models;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,166 +19,125 @@ import javafx.beans.property.StringProperty;
  */
 public class Instructores {
 
-    IntegerProperty id;
-    StringProperty nombre1;
-    StringProperty nombre2;
-    StringProperty nombre3;
-    StringProperty apellido1;
-    StringProperty apellido2;
-    StringProperty direccion;
-    StringProperty email;
-    StringProperty telefono;
-    ObjectProperty<LocalDate> fechaNacimiento;
+    private int id;
+    private String nombre1;
+    private String nombre2;
+    private String nombre3;
+    private String apellido1;
+    private String apellido2;
+    private String direccion;
+    private String email;
+    private String telefono;
+    private LocalDate fechaNacimiento;
 
     public Instructores() {
-        this.id = new SimpleIntegerProperty();
-        this.nombre1 = new SimpleStringProperty();
-        this.nombre2 = new SimpleStringProperty();
-        this.nombre3 = new SimpleStringProperty();
-        this.apellido1 = new SimpleStringProperty();
-        this.apellido2 = new SimpleStringProperty();
-        this.direccion = new SimpleStringProperty();
-        this.email = new SimpleStringProperty();
-        this.telefono = new SimpleStringProperty();
-        this.fechaNacimiento = new SimpleObjectProperty<>();
+
+    }
+
+    public Instructores(int id, String nombre1, String apellido1, String email, String telefono) {
+        this.id = id;
+        this.nombre1 = nombre1;
+        this.apellido1 = apellido1;
+        this.email = email;
+        this.telefono = telefono;
     }
 
     public Instructores(int id, String nombre1, String nombre2, String nombre3, String apellido1, String apellido2, String direccion, String email, String telefono, LocalDate fechaNacimiento) {
-        this.id = new SimpleIntegerProperty(id);
-        this.nombre1 = new SimpleStringProperty(nombre1);
-        this.nombre2 = new SimpleStringProperty(nombre2);
-        this.nombre3 = new SimpleStringProperty(nombre3);
-        this.apellido1 = new SimpleStringProperty(apellido1);
-        this.apellido2 = new SimpleStringProperty(apellido2);
-        this.direccion = new SimpleStringProperty(direccion);
-        this.email = new SimpleStringProperty(email);
-        this.telefono = new SimpleStringProperty(telefono);
-        this.fechaNacimiento = new SimpleObjectProperty<>(fechaNacimiento);
-    }
-
-    public IntegerProperty id() {
-        return id;
+        this.id = id;
+        this.nombre1 = nombre1;
+        this.nombre2 = nombre2;
+        this.nombre3 = nombre3;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.direccion = direccion;
+        this.email = email;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public int getId() {
-        return id.get();
+        return id;
     }
 
     public void setId(int id) {
-        this.id.set(id);
-    }
-
-    public StringProperty nombre1() {
-        return nombre1;
+        this.id = id;
     }
 
     public String getNombre1() {
-        return nombre1.get();
-    }
-
-    public void setNombre1(String nombre1) {
-        this.nombre1.set(nombre1);
-    }
-
-    public StringProperty nombre2() {
         return nombre1;
     }
 
+    public void setNombre1(String nombre1) {
+        this.nombre1 = nombre1;
+    }
+
     public String getNombre2() {
-        return nombre2.get();
+        return nombre2;
     }
 
     public void setNombre2(String nombre2) {
-        this.nombre2.set(nombre2);
-    }
-
-    public StringProperty nombre3() {
-        return nombre3;
+        this.nombre2 = nombre2;
     }
 
     public String getNombre3() {
-        return nombre3.get();
+        return nombre3;
     }
 
     public void setNombre3(String nombre3) {
-        this.nombre3.set(nombre3);
-    }
-
-    public StringProperty apellido1() {
-        return apellido1;
+        this.nombre3 = nombre3;
     }
 
     public String getApellido1() {
-        return apellido1.get();
+        return apellido1;
     }
 
     public void setApellido1(String apellido1) {
-        this.apellido1.set(apellido1);
-    }
-
-    public StringProperty apellido2() {
-        return apellido2;
+        this.apellido1 = apellido1;
     }
 
     public String getApellido2() {
-        return apellido2.get();
+        return apellido2;
     }
 
     public void setApellido2(String apellido2) {
-        this.apellido2.set(apellido2);
-    }
-
-    public StringProperty direccion() {
-        return direccion;
+        this.apellido2 = apellido2;
     }
 
     public String getDireccion() {
-        return direccion.get();
+        return direccion;
     }
 
     public void setDireccion(String direccion) {
-        this.direccion.set(direccion);
-    }
-
-    public StringProperty email() {
-        return email;
+        this.direccion = direccion;
     }
 
     public String getEmail() {
-        return email.get();
+        return email;
     }
 
     public void setEmail(String email) {
-        this.email.set(email);
-    }
-
-    public StringProperty telefono() {
-        return telefono;
+        this.email = email;
     }
 
     public String getTelefono() {
-        return telefono.get();
+        return telefono;
     }
 
     public void setTelefono(String telefono) {
-        this.telefono.set(telefono);
-    }
-
-    public ObjectProperty fechaNacimiento() {
-        return fechaNacimiento;
+        this.telefono = telefono;
     }
 
     public LocalDate getFechaNacimiento() {
-        return fechaNacimiento.get();
+        return fechaNacimiento;
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento.set(fechaNacimiento);
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     @Override
     public String toString() {
-        return id.get() + " | " + nombre1.get() + " " + apellido1.get();
+        return id + " | " + nombre1 + " | " + apellido1;
     }
 
 }

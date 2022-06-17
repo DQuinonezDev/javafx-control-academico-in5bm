@@ -115,7 +115,7 @@ public class AsignacionAlumnosController implements Initializable {
         cmbIdCursos.setEditable(false);
         dpFechaAsignacion.setEditable(false);
         tblAsignacionAlumnos.setDisable(false);
-        
+
         txtId.setDisable(true);
         cmbAlumno.setDisable(true);
         cmbIdCursos.setDisable(true);
@@ -160,7 +160,7 @@ public class AsignacionAlumnosController implements Initializable {
         asignacion.setCursoId(((Cursos) cmbIdCursos.getSelectionModel().getSelectedItem()).getId());
 
         asignacion.setFechaAsignacion(dpFechaAsignacion.getValue().atStartOfDay());
-       
+
         /*AsignacionesAlumnos asignacion = new AsignacionesAlumnos();
         asignacion.setAlumnoId(cmbAlumno.getValue().toString());
         System.out.println(cmbAlumno.toString());
@@ -168,7 +168,6 @@ public class AsignacionAlumnosController implements Initializable {
         System.out.println("- - - - - -" + cmbAlumno.getValue().toString());
         asignacion.setCursoId(Integer.parseInt(cmbIdCursos.getValue().toString()));
         asignacion.setFechaAsignacion(dpFechaAsignacion.getValue().atStartOfDay());*/
-
         PreparedStatement pstmt = null;
 
         try {
@@ -380,15 +379,14 @@ public class AsignacionAlumnosController implements Initializable {
                 break;
             case GUARDAR:
 
-                /* if (txtCarne.getText().isEmpty()) {
+                if (cmbAlumno.getValue() == null) {
+                    validacionI();
+                } else if (cmbIdCursos.getValue() == null) {
+                    validacionI();
+                } else if (dpFechaAsignacion.getValue() == null) {
                     validacionI();
 
-                } else if (txtNombre1.getText().isEmpty()) {
-                    validacionI();
-                } else if (txtApellido1.getText().isEmpty()) {
-                    validacionI();
-                } else */
-                if (ageregarAsignacion()) {
+                } else if (ageregarAsignacion()) {
 
                     cargarDatos();
                     limpiarCampos();
@@ -425,7 +423,7 @@ public class AsignacionAlumnosController implements Initializable {
                     //tblAsignacionAlumnos.setDisable(true);
 
                     txtId.setDisable(true);
-                    
+
                     btnNuevo.setDisable(true);
                     btnNuevo.setVisible(false);
 
@@ -813,6 +811,24 @@ public class AsignacionAlumnosController implements Initializable {
         //((Alumnos) cmbAlumno.getSelectionModel().getSelectedItem()).getCarne());
         cmbIdCursos.setItems(getCursos());
         cmbAlumno.setItems(getAlumnos());
+    }
+
+    private void validacionI() {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle("Control Academico - El Bosque");
+        alerta.setHeaderText(null);
+        Stage stagee = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+        alerta.show();
+
+        if (cmbAlumno.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el Id de Alumnos");
+        } else if (cmbIdCursos.getValue() == null) {
+            alerta.setContentText("Le falta ingresar el id cursos");
+        } else if (dpFechaAsignacion.getValue() == null) {
+            alerta.setContentText("Le falta ingresar la fecha");
+
+        }
     }
 
 }
