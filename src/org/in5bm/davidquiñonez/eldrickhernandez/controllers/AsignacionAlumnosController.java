@@ -115,7 +115,7 @@ public class AsignacionAlumnosController implements Initializable {
         cmbIdCursos.setEditable(false);
         dpFechaAsignacion.setEditable(false);
         tblAsignacionAlumnos.setDisable(false);
-
+        
         txtId.setDisable(true);
         cmbAlumno.setDisable(true);
         cmbIdCursos.setDisable(true);
@@ -160,7 +160,7 @@ public class AsignacionAlumnosController implements Initializable {
         asignacion.setCursoId(((Cursos) cmbIdCursos.getSelectionModel().getSelectedItem()).getId());
 
         asignacion.setFechaAsignacion(dpFechaAsignacion.getValue().atStartOfDay());
-
+       
         /*AsignacionesAlumnos asignacion = new AsignacionesAlumnos();
         asignacion.setAlumnoId(cmbAlumno.getValue().toString());
         System.out.println(cmbAlumno.toString());
@@ -168,10 +168,11 @@ public class AsignacionAlumnosController implements Initializable {
         System.out.println("- - - - - -" + cmbAlumno.getValue().toString());
         asignacion.setCursoId(Integer.parseInt(cmbIdCursos.getValue().toString()));
         asignacion.setFechaAsignacion(dpFechaAsignacion.getValue().atStartOfDay());*/
+
         PreparedStatement pstmt = null;
 
         try {
-            pstmt = Conexion.getInstance().getConexion().prepareCall("{CALL sp_asignacion_alumnos_create(?,?,?)}");
+            pstmt = Conexion.getInstance().getConexion().prepareCall("{CALL sp_asignaciones_alumnos_create(?,?,?)}");
             pstmt.setString(1, asignacion.getAlumnoId());
             pstmt.setInt(2, asignacion.getCursoId());
             pstmt.setTimestamp(3, Timestamp.valueOf(asignacion.getFechaAsignacion()));
@@ -379,14 +380,15 @@ public class AsignacionAlumnosController implements Initializable {
                 break;
             case GUARDAR:
 
-                if (cmbAlumno.getValue() == null) {
-                    validacionI();
-                } else if (cmbIdCursos.getValue() == null) {
-                    validacionI();
-                } else if (dpFechaAsignacion.getValue() == null) {
+                /* if (txtCarne.getText().isEmpty()) {
                     validacionI();
 
-                } else if (ageregarAsignacion()) {
+                } else if (txtNombre1.getText().isEmpty()) {
+                    validacionI();
+                } else if (txtApellido1.getText().isEmpty()) {
+                    validacionI();
+                } else */
+                if (ageregarAsignacion()) {
 
                     cargarDatos();
                     limpiarCampos();
@@ -423,7 +425,7 @@ public class AsignacionAlumnosController implements Initializable {
                     //tblAsignacionAlumnos.setDisable(true);
 
                     txtId.setDisable(true);
-
+                    
                     btnNuevo.setDisable(true);
                     btnNuevo.setVisible(false);
 
@@ -608,7 +610,6 @@ public class AsignacionAlumnosController implements Initializable {
                 alumno.setCarne(rs.getString(1));
                 alumno.setNombre1(rs.getString(2));
                 alumno.setNombre2(rs.getString(3));
-
                 alumno.setNombre3(rs.getString(4));
                 alumno.setApellido1(rs.getString(5));
                 alumno.setApellido2(rs.getString(6));*/
@@ -643,7 +644,7 @@ public class AsignacionAlumnosController implements Initializable {
         return alumno;
     }
 
-    private ObservableList getCursos() {
+     private ObservableList getCursos() {
         ArrayList<Cursos> arrayListCursos = new ArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -760,7 +761,7 @@ public class AsignacionAlumnosController implements Initializable {
         ResultSet rs = null;
 
         try {
-            pstmt = Conexion.getInstance().getConexion().prepareCall("{CALL sp_asignacion_read()}");
+            pstmt = Conexion.getInstance().getConexion().prepareCall("{CALL sp_asignaciones_alumnos_read()}");
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -811,24 +812,6 @@ public class AsignacionAlumnosController implements Initializable {
         //((Alumnos) cmbAlumno.getSelectionModel().getSelectedItem()).getCarne());
         cmbIdCursos.setItems(getCursos());
         cmbAlumno.setItems(getAlumnos());
-    }
-
-    private void validacionI() {
-        Alert alerta = new Alert(Alert.AlertType.WARNING);
-        alerta.setTitle("Control Academico - El Bosque");
-        alerta.setHeaderText(null);
-        Stage stagee = (Stage) alerta.getDialogPane().getScene().getWindow();
-        stagee.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
-        alerta.show();
-
-        if (cmbAlumno.getValue() == null) {
-            alerta.setContentText("Le falta ingresar el Id de Alumnos");
-        } else if (cmbIdCursos.getValue() == null) {
-            alerta.setContentText("Le falta ingresar el id cursos");
-        } else if (dpFechaAsignacion.getValue() == null) {
-            alerta.setContentText("Le falta ingresar la fecha");
-
-        }
     }
 
 }

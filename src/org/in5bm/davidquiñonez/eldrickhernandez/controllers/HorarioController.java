@@ -230,7 +230,7 @@ public class HorarioController implements Initializable {
 
         try {
             pstmt = Conexion.getInstance().getConexion()
-                    .prepareCall("{CALL sp_carreras_horarios_create(?,?,?,?,?,?,?)}");
+                    .prepareCall("{CALL sp_horarios_create(?,?,?,?,?,?,?)}");
             pstmt.setString(1, horario.getFInicio().toString());
             pstmt.setString(2, horario.getFFinal().toString());
             pstmt.setBoolean(3, horario.getLunes());
@@ -312,10 +312,33 @@ public class HorarioController implements Initializable {
 
     }
 
-    private boolean eliminarHorarios() {
-
+   
+        
+    public boolean eliminarHorario() {
+        Horarios horario = ((Horarios) tblHorarios.getSelectionModel().getSelectedItem());
+        //System.out.println(alumno.toString());
+        PreparedStatement pst = null;
+        try {
+            //System.out.println(alumno.toString());
+            String SQL = "CALL sp_horarios_delete(?)";
+            //System.out.println("Paso el if de confirmar");
+            pst = Conexion.getInstance().getConexion().prepareCall(SQL);
+            pst.setInt(1, horario.getId());
+            System.out.println(pst);
+            pst.execute();
+            
+            
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Se produjo un error al eliminar el registro: " + horario.toString());
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //System.out.println("Llego al false");
         return false;
     }
+      
 
     // EXISTE ELEMENTO
     public boolean existeElemento() {
@@ -512,7 +535,7 @@ public class HorarioController implements Initializable {
 
                     if (botonC.get().equals(ButtonType.OK)) {
 
-                        if (eliminarHorarios()) {
+                        if (eliminarHorario()) {
 
                             listaHorarios.remove(tblHorarios.getSelectionModel().getFocusedIndex());
                             limpiarCampos();

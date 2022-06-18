@@ -1,8 +1,8 @@
-package org.in5bm.davidquiñonez.eldrickhernandez.controllers;
+ package org.in5bm.davidquiñonez.eldrickhernandez.controllers;
 
 import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import java.time.LocalDate;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import java.sql.PreparedStatement;
@@ -49,75 +48,104 @@ public class InstructoresController implements Initializable {
     private final String PAQUETE_IMAGES = "org/in5bm/davidquiñonez/eldrickhernandez/resources/images/";
 
     private Operacion operacion = Operacion.NINGUNO;
+
     private Principal escenarioPrincipal;
 
     @FXML
-    private Button btnNuevo;
-    @FXML
-    private ImageView imgNuevo;
-    @FXML
-    private Button btnModificar;
-    @FXML
-    private ImageView imgModificar;
-    @FXML
-    private Button btnEliminar;
-    @FXML
-    private ImageView imgEliminar;
-    @FXML
-    private Button btnReporte;
-    @FXML
-    private ImageView imgReporte;
-    @FXML
     private TextField txtId;
+
     @FXML
     private TextField txtNombre1;
-    @FXML
-    private TextField txtNombre3;
-    @FXML
-    private TextField txtApellido1;
-    @FXML
-    private TextField txtDireccion;
-    @FXML
-    private TextField txtApellido2;
+
     @FXML
     private TextField txtNombre2;
+
+    @FXML
+    private TextField txtNombre3;
+
+    @FXML
+    private TextField txtApellido1;
+
+    @FXML
+    private TextField txtApellido2;
+
+    @FXML
+    private TextField txtDireccion;
+
     @FXML
     private TextField txtEmail;
+
     @FXML
     private TextField txtTelefono;
+
     @FXML
     private JFXDatePicker dpFechaNacimiento;
-    @FXML
-    private TableView<Instructores> tblInstructores;
-    @FXML
-    private TableColumn<Instructores, Integer> colId;
-    @FXML
-    private TableColumn<Instructores, String> colNombre1;
-    @FXML
-    private TableColumn<Instructores, String> colNombre2;
-    @FXML
-    private TableColumn<Instructores, String> colNombre3;
-    @FXML
-    private TableColumn<Instructores, String> colApellido1;
-    @FXML
-    private TableColumn<Instructores, String> colApellido2;
-    @FXML
-    private TableColumn<Instructores, String> colDireccion;
-    @FXML
-    private TableColumn<Instructores, String> colEmail;
-    @FXML
-    private TableColumn<Instructores, String> colTelefono;
-    @FXML
-    private TableColumn<Instructores, JFXDatePicker> colFecha;
 
+    @FXML
+    private Button btnNuevo;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button btnReporte;
+
+    @FXML
+    private ImageView imgNuevo;
+
+    @FXML
+    private ImageView imgModificar;
+
+    @FXML
+    private ImageView imgEliminar;
+
+    @FXML
+    private ImageView imgReporte;
+
+    @FXML
+    private TableView tblInstructores;
+
+    @FXML
+    private TableColumn colId;
+
+    @FXML
+    private TableColumn colNombre1;
+
+    @FXML
+    private TableColumn colNombre2;
+
+    @FXML
+    private TableColumn colNombre3;
+
+    @FXML
+    private TableColumn colApellido1;
+
+    @FXML
+    private TableColumn colApellido2;
+
+    @FXML
+    private TableColumn colDireccion;
+
+    @FXML
+    private TableColumn colEmail;
+
+    @FXML
+    private TableColumn colTelefono;
+
+    @FXML
+    private TableColumn colFechaNacimiento;
+
+    @FXML
+    private ObservableList<Instructores> listaInstructores;
+    
     @FXML
     public void clicRegresar(MouseEvent event) {
         escenarioPrincipal.mostrarEscenaPrincipal();
     }
-
-    @FXML
-    private ObservableList<Instructores> listaInstructores;
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarDatos();
@@ -134,7 +162,7 @@ public class InstructoresController implements Initializable {
         colDireccion.setCellValueFactory(new PropertyValueFactory<Instructores, String>("direccion"));
         colEmail.setCellValueFactory(new PropertyValueFactory<Instructores, String>("email"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<Instructores, String>("telefono"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<Instructores, JFXDatePicker>("fechaNacimiento"));
+        colFechaNacimiento.setCellValueFactory(new PropertyValueFactory<Instructores, JFXDatePicker>("fechaNacimiento"));
 
     }
 
@@ -163,7 +191,7 @@ public class InstructoresController implements Initializable {
 
             txtTelefono.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getTelefono());
 
-            dpFechaNacimiento.setValue((((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getFechaNacimiento().atStartOfDay().toLocalDate()));
+            dpFechaNacimiento.setValue(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getFechaNacimiento());
         }
 
     }
@@ -180,8 +208,6 @@ public class InstructoresController implements Initializable {
         instructores.setEmail(txtEmail.getText());
         instructores.setTelefono(txtTelefono.getText());
 
-        /*LocalDate fecha = dpFechaNacimiento.getValue();
-        java.sql.Date fecha2 = java.sql.Date.valueOf(dpFechaNacimiento.getValue().toString());*/
         instructores.setFechaNacimiento(dpFechaNacimiento.getValue());
 
         PreparedStatement pstmt = null;
@@ -241,6 +267,7 @@ public class InstructoresController implements Initializable {
 
         /*LocalDate fecha = dpFechaNacimiento.getValue();
         java.sql.Date fecha2 = java.sql.Date.valueOf(dpFechaNacimiento.getValue().toString());*/
+
         instructores.setFechaNacimiento(dpFechaNacimiento.getValue());
 
         PreparedStatement pstmt = null;
@@ -281,7 +308,7 @@ public class InstructoresController implements Initializable {
         }
         return false;
     }
-
+    
     private boolean eliminarInstructor() {
         if (existeElementoSeleccionado()) {
             Instructores instructor = (Instructores) tblInstructores.getSelectionModel().getSelectedItem();
@@ -443,10 +470,10 @@ public class InstructoresController implements Initializable {
 
                 limpiarCampos();
                 btnNuevo.setText("Guardar");
-                imgNuevo.setImage(new Image(PAQUETE_IMAGES + "guardar.png"));
+                imgNuevo.setImage(new Image(PAQUETE_IMAGES + "disco-flexible.png"));
 
                 btnModificar.setText("Cancelar");
-                imgModificar.setImage(new Image(PAQUETE_IMAGES + "cancelar.png"));
+                imgModificar.setImage(new Image(PAQUETE_IMAGES + "icons8-cancelar-100.png"));
 
                 btnEliminar.setDisable(true);
                 imgEliminar.setDisable(true);
@@ -465,7 +492,7 @@ public class InstructoresController implements Initializable {
 
             case GUARDAR:
 
-                /*if (txtNombre1.getText().isEmpty()) {
+                if (txtNombre1.getText().isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Control Académico Kinal");
                     alert.setHeaderText(null);
@@ -504,7 +531,7 @@ public class InstructoresController implements Initializable {
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image(PAQUETE_IMAGES + "logo.png"));
                     alert.show();
-
+                    
                 } else if (dpFechaNacimiento.getValue() == null) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Control Académico Kinal");
@@ -514,32 +541,33 @@ public class InstructoresController implements Initializable {
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image(PAQUETE_IMAGES + "logo.png"));
                     alert.show();
-                } else {*/
-                if (agregarInstructor()) {
-                    cargarDatos();
-                    limpiarCampos();
-                    deshabilitarCampos();
-                    tblInstructores.setDisable(false);
+                } else {
+                    if (agregarInstructor()) {
+                        cargarDatos();
+                        limpiarCampos();
+                        deshabilitarCampos();
+                        tblInstructores.setDisable(false);
 
-                    btnNuevo.setText("Nuevo");
-                    imgNuevo.setImage(new Image(PAQUETE_IMAGES + "pagina.png"));
+                        btnNuevo.setText("Nuevo");
+                        imgNuevo.setImage(new Image(PAQUETE_IMAGES + "pagina.png"));
 
-                    btnModificar.setText("Modificar");
-                    imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
+                        btnModificar.setText("Modificar");
+                        imgModificar.setImage(new Image(PAQUETE_IMAGES + "editar.png"));
 
-                    btnEliminar.setDisable(false);
-                    imgEliminar.setDisable(false);
+                        btnEliminar.setDisable(false);
+                        imgEliminar.setDisable(false);
 
-                    btnEliminar.setVisible(true);
-                    imgEliminar.setVisible(true);
+                        btnEliminar.setVisible(true);
+                        imgEliminar.setVisible(true);
 
-                    btnReporte.setDisable(false);
-                    btnReporte.setDisable(false);
+                        btnReporte.setDisable(false);
+                        btnReporte.setDisable(false);
 
-                    btnReporte.setVisible(true);
-                    imgReporte.setVisible(true);
+                        btnReporte.setVisible(true);
+                        imgReporte.setVisible(true);
 
-                    operacion = Operacion.NINGUNO;
+                        operacion = Operacion.NINGUNO;
+                    }
                 }
 
                 break;
@@ -581,7 +609,7 @@ public class InstructoresController implements Initializable {
                     alert.setContentText("Antes de continuar seleccione un registro");
                     Stage dialog = new Stage();
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "logo.png"));
                     alert.show();
                 }
 
@@ -698,7 +726,7 @@ public class InstructoresController implements Initializable {
                     alert.setHeaderText(null);
                     Stage dialog = new Stage();
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "logoAlert.png"));
                     alert.setContentText("¿Desea eliminar el registro seleccionado?");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get().equals(ButtonType.OK)) {
@@ -713,7 +741,7 @@ public class InstructoresController implements Initializable {
                             alert.setContentText("Registro eliminado exitosamente");
                             dialog = new Stage();
                             stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                            stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                            stage.getIcons().add(new Image(PAQUETE_IMAGES + "logoAlert.png"));
                             alert.show();
                         }
 
@@ -730,7 +758,7 @@ public class InstructoresController implements Initializable {
                     alert.setContentText("Antes de continuar seleccione un registro");
                     Stage dialog = new Stage();
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "aprender-en-linea.png"));
+                    stage.getIcons().add(new Image(PAQUETE_IMAGES + "logoAlert.png"));
                     alert.show();
                 }
                 break;

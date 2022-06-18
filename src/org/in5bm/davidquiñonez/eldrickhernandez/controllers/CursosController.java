@@ -317,7 +317,7 @@ public class CursosController implements Initializable {
 
         try {
             pstmt = Conexion.getInstance().getConexion()
-                    .prepareCall("{CALL sp_carreras_read()}");
+                    .prepareCall("{CALL sp_carreras_tecnicas_read()}");
             System.out.println(pstmt.toString());
             rs = pstmt.executeQuery();
 
@@ -381,10 +381,8 @@ public class CursosController implements Initializable {
 
  /*ObservableList<CarrerasTecnicas> listaCarrera = FXCollections.observableArrayList(getCarrerasTecnicas());
         cmbCarrera.getItems().addAll(listaCarreras);
-
         ObservableList<Horarios> listaHorario = FXCollections.observableArrayList(getHorarios());
         cmbHorario.getItems().addAll(listaHorarios);
-
         ObservableList<Instructores> listaInstructor = FXCollections.observableArrayList(getInstructores());
         cmbIndtructor.getItems().addAll(listaInstructores);*/
     }
@@ -871,7 +869,7 @@ public class CursosController implements Initializable {
 
         try {
             pstmt = Conexion.getInstance().getConexion()
-                    .prepareCall("{CALL sp_horario_read_by_id(?)}");
+                    .prepareCall("{CALL sp_horarios_read_by_id(?)}");
 
             pstmt.setInt(1, id);
 
